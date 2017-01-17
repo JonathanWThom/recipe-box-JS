@@ -34,14 +34,11 @@ import { Component } from '@angular/core';
       <input type="radio" [(ngModel)]="selectedRecipe.priority" [value]="3">3 (High Priority)
       <button (click)="finishedEditing()">Done</button>
     </div>
-
-    <button (click)="recipeForm()">Add Recipe</button>
-    <div *ngIf="newRecipe">
-      <p>hey i exist!</p>
-    </div>
+    <recipe-form></recipe-form>
   </div>
   `
 })
+
 
 export class AppComponent {
   recipes: Recipe[] = [
@@ -49,12 +46,8 @@ export class AppComponent {
     new Recipe ("Fluffy French Toast", "Bread, Eggs, Syrup, Half and Half, Oil, Flour, Cinnamon", "Fry it up, man", 3),
     new Recipe ("Cinnamon Rolls", "Flour, Milk, Yeast, Sugar, Cinnamon, Raisins, Walnuts", "Bake it up, yo", 2)
   ];
-  newRecipe = null;
   selectedRecipe = null;
 
-  recipeForm() {
-    this.newRecipe = true;
-  }
   editRecipe(clickedRecipe) {
     this.selectedRecipe = clickedRecipe;
   }
