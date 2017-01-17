@@ -11,8 +11,27 @@ import { Component } from '@angular/core';
       <ul>
         <li>{{currentRecipe.ingredients}}</li>
         <li>{{currentRecipe.description}}</li>
-        <button (click)="editRecipe()">Edit!</button>
+        <button (click)="editRecipe(currentRecipe)">Edit!</button>
       </ul>
+    </div>
+    <div>
+      <h4>{{selectedRecipe.title}}</h4>
+      <p>Tested? {{selectedRecipe.tested}}</p>
+      <h4>Edit Recipe</h4>
+      <label>Enter Title</label>
+      <input [(ngModel)]="selectedRecipe.title">
+      <br>
+      <label>Enter Ingredients</label>
+      <input [(ngModel)]="selectedRecipe.ingredients">
+      <br>
+      <label>Enter Description</label>
+      <input [(ngModel)]="selectedRecipe.description">
+      <br>
+      <label>Enter Recipe Priority (3 is high, 1 is low):</label>
+      <br>
+      <input type="radio" [(ngModel)]="selectedRecipe.priority" [value]="1">1 (Low Priority)<br>
+      <input type="radio" [(ngModel)]="selectedRecipe.priority" [value]="2">2 (Medium Priority)<br>
+      <input type="radio" [(ngModel)]="selectedRecipe.priority" [value]="3">3 (High Priority)
     </div>
   </div>
   `
@@ -24,9 +43,9 @@ export class AppComponent {
     new Recipe ("Fluffy French Toast", "Bread, Eggs, Syrup, Half and Half, Oil, Flour, Cinnamon", "Fry it up, man", 3),
     new Recipe ("Cinnamon Rolls", "Flour, Milk, Yeast, Sugar, Cinnamon, Raisins, Walnuts", "Bake it up, yo", 2)
   ];
-
-  editRecipe() {
-    alert("You just requested to edit a Recipe");
+  selectedRecipe: Recipe = this.recipes[0];
+  editRecipe(clickedRecipe) {
+    this.selectedRecipe = clickedRecipe;
   }
 
   isTested(clickedRecipe: Recipe) {
