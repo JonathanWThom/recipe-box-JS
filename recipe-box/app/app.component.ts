@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
         <button (click)="editRecipe(currentRecipe)">Edit!</button>
       </ul>
     </div>
-    <div>
+    <div *ngIf="selectedRecipe">
       <h4>{{selectedRecipe.title}}</h4>
       <p>Tested? {{selectedRecipe.tested}}</p>
       <h4>Edit Recipe</h4>
@@ -32,6 +32,7 @@ import { Component } from '@angular/core';
       <input type="radio" [(ngModel)]="selectedRecipe.priority" [value]="1">1 (Low Priority)<br>
       <input type="radio" [(ngModel)]="selectedRecipe.priority" [value]="2">2 (Medium Priority)<br>
       <input type="radio" [(ngModel)]="selectedRecipe.priority" [value]="3">3 (High Priority)
+      <button (click)="finishedEditing()">Done</button>
     </div>
   </div>
   `
@@ -43,11 +44,13 @@ export class AppComponent {
     new Recipe ("Fluffy French Toast", "Bread, Eggs, Syrup, Half and Half, Oil, Flour, Cinnamon", "Fry it up, man", 3),
     new Recipe ("Cinnamon Rolls", "Flour, Milk, Yeast, Sugar, Cinnamon, Raisins, Walnuts", "Bake it up, yo", 2)
   ];
-  selectedRecipe: Recipe = this.recipes[0];
+  selectedRecipe = null;
   editRecipe(clickedRecipe) {
     this.selectedRecipe = clickedRecipe;
   }
-
+  finishedEditing() {
+    this.selectedRecipe = null;
+  }
   isTested(clickedRecipe: Recipe) {
     if(clickedRecipe.tested === true){
       alert("You've tried this one!");
